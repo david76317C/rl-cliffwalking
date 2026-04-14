@@ -6,7 +6,7 @@ Agentes de aprendizaje por refuerzo entrenados sobre el ambiente **CliffWalking-
 
 ## 🗺️ El Ambiente
 
-CliffWalking presenta un dilema clásico en RL entre exploración y explotación. El ambiente es **determinístico** — las acciones siempre producen el resultado esperado, lo que facilita el aprendizaje pero exige que el agente explore  suficientemente para descubrir que el borde del acantilado es peligroso antes de comprometerse con una política. Este ambiente es presentado como ejemplo ilustrativo en Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd ed., 2020), Ejemplo 6.6, p. 132, precisamente para comparar entre el comportamiento dos algoritmos frente a este tipo de dilema.
+CliffWalking presenta un dilema clásico en RL entre exploración y explotación. El ambiente es **determinístico** — las acciones siempre producen el resultado esperado, lo que facilita el aprendizaje pero exige que el agente explore  suficientemente para descubrir que el borde del acantilado es peligroso antes de comprometerse con una política. Este ambiente es presentado como ejemplo ilustrativo en Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd ed., 2020), Ejemplo 6.6, p. 132, precisamente para comparar el comportamiento entre dos algoritmos frente a este tipo de dilema.
 
 CliffWalking es un grid de 4×12 donde un agente debe cruzar desde el punto de inicio hasta la meta evitando caer al acantilado.
 
@@ -203,7 +203,7 @@ Requiere Python 3.11.
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/rl-cliffwalking.git
+git clone https://github.com/david76317C/rl-cliffwalking.git
 cd rl-cliffwalking
 
 # Instalar dependencias con uv
