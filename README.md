@@ -6,9 +6,7 @@ Agentes de aprendizaje por refuerzo entrenados sobre el ambiente **CliffWalking-
 
 ## 🗺️ El Ambiente
 
-CliffWalking presenta un dilema clásico en RL entre exploración y explotación. El ambiente es determinístico — las acciones siempre producen el resultado esperado, lo que facilita el aprendizaje pero exige que el agente explore  suficientemente para descubrir que el borde del acantilado es peligroso antes de comprometerse con una política. Este ambiente es presentado como ejemplo ilustrativo en Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd ed., 2020), Ejemplo 6.6, p. 132, precisamente para comparar el comportamiento entre dos algoritmos frente a este tipo de dilema.
-
-CliffWalking es un grid de 4×12 donde un agente debe cruzar desde el punto de inicio hasta la meta evitando caer al acantilado.
+CliffWalking es un grid de 4×12 donde un agente debe cruzar desde el punto de inicio hasta la meta evitando caer al acantilado. El ambiente se caracteriza por ser determinístico, es decir, las acciones siempre producen el resultado esperado.
 
 ```
  _  _  _  _  _  _  _  _  _  _  _  _
@@ -127,7 +125,7 @@ Entrada (48)  →  Lineal(128)  →  ReLU  →  Lineal(128)  →  ReLU  →  Sal
 
 ### Q-Learning (250,000 episodios)
 
-El agente convergió a recompensas promedio entre **-17 y -28**, oscilando por el efecto del `epsilon_end=0.01` que mantiene una pequeña exploración residual.
+El agente convergió a recompensas promedio entre -17 y -28**, oscilando por el efecto del `epsilon_end=0.01` que mantiene una pequeña exploración residual.
 
 ```
 Episode 205900/250000 | Avg Reward: -18.05 | Epsilon: 0.0500 | States visited: 37
@@ -135,7 +133,7 @@ Episode 209900/250000 | Avg Reward: -20.03 | Epsilon: 0.0500 | States visited: 3
 Episode 222100/250000 | Avg Reward: -17.93 | Epsilon: 0.0500 | States visited: 37
 ```
 
-El agente visitó **37 de 48 estados** — nunca exploró el acantilado completo ya que aprendió a evitarlo eficientemente. 
+El agente visitó 37 de 48 estados — nunca exploró el acantilado completo ya que aprendió a evitarlo eficientemente. 
 
 ### DQN (10,000 episodios)
 
