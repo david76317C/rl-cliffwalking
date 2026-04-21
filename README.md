@@ -1,6 +1,6 @@
 # 🧗 RL CliffWalking
 
-Agentes de aprendizaje por refuerzo entrenados sobre el ambiente **CliffWalking-v1** de Gymnasium. El proyecto implementa dos algoritmos desde cero:*Q-Learning tabular y Deep Q-Network (DQN) con PyTorch, junto con una interfaz de línea de comandos completa para entrenar, evaluar y visualizar los agentes.
+Agentes de aprendizaje por refuerzo entrenados sobre el ambiente **CliffWalking-v1** de Gymnasium. El proyecto implementa dos algoritmos desde cero: Q-Learning tabular y Deep Q-Network (DQN) con PyTorch, junto con una interfaz de línea de comandos completa para entrenar, evaluar y visualizar los agentes.
 
 ---
 
@@ -155,7 +155,7 @@ DQN, aunque funciona correctamente, es una herramienta sobredimensionada para es
 
 Durante el entrenamiento ambos algoritmos muestran iteraciones que oscilan alrededor del valor óptimo. Según Sutton & Barto en *Reinforcement Learning: An Introduction* (2020), la política óptima para CliffWalking produce una recompensa de -13, correspondiente a la ruta más corta posible hacia la meta. Al renderizar ambos agentes entrenados, los dos logran completar el episodio alcanzando exactamente ese óptimo de -13, lo que confirma que ambos convergieron a la política correcta.
 
-Sin embargo, utilizar DQN no aporta beneficios adicionales frente a Q-Learning en este ambiente. Ambos llegan al mismo resultado óptimo, pero Q-Learning lo hace de forma más directa, con menor costo computacional y sin la complejidad adicional de gestionar una red neuronal, un buffer de experiencias y una red objetivo. Para ambientes discretos y pequeños como CliffWalking, la tabla Q es la herramienta adecuada — DQN justifica su complejidad únicamente cuando el espacio de estados es demasiado grande o continuo para ser representado de forma tabular.
+Sin embargo, utilizar DQN no aporta beneficios adicionales frente a Q-Learning en este ambiente. Ambos llegan al mismo resultado óptimo, pero Q-Learning lo hace de forma más directa, con menor costo computacional y sin la complejidad adicional de gestionar una red neuronal, un buffer de experiencias y una red objetivo. Para ambientes discretos y pequeños como CliffWalking, la tabla Q es la herramienta adecuada, DQN justifica su complejidad únicamente cuando el espacio de estados es demasiado grande o continuo para ser representado de forma tabular.
 
 ---
 
@@ -163,7 +163,7 @@ Sin embargo, utilizar DQN no aporta beneficios adicionales frente a Q-Learning e
 
 Uno de los mayores desafíos conceptuales fue entender por qué el estado no se puede pasar directamente como entero a la red neuronal. Al principio parecía natural simplemente entregarle el número `36` a la red y dejar que aprendiera, pero esto implica un problema fundamental: la red neuronal interpreta los números como magnitudes continuas, lo que significa que asumiría relaciones de orden y proximidad entre los estados que no existen en la realidad. Deducir que la solución era la codificación one-hot, transformar cada estado en un vector de 48 dimensiones donde solo una posición vale `1` — requirió entender que la red no recibe escalares sino vectores, y que cada dimensión del vector es una señal independiente que la red puede ponderar libremente sin asumir ninguna jerarquía entre los estados.
 
-El segundo gran desafío fue comprender cómo aprende internamente el DQN, función por función. No fue suficiente saber que "usa una red neuronal" fue necesario entender qué hace `_encode_state` antes de `select_action`, por qué `_learn` no se llama con el estado actual sino con un batch del `ReplayBuffer`, qué rol cumple la `target_net` separada de la `q_net`, y por qué sincronizarlas cada cierto número de episodios en lugar de en cada paso. Cada una de estas decisiones de diseño tiene una razón matemática concreta: el buffer rompe la correlación temporal entre experiencias consecutivas, y la red objetivo evita que el agente persiga un blanco que se mueve en cada actualización de pesos. Entender esto no como código sino como algoritmo fue lo que más tiempo y revisión demandó del proyecto.
+El segundo gran desafío fue comprender cómo aprende internamente el DQN, función por función. No fue suficiente saber que "usa una red neuronal" sino que fue necesario construir la función  `_encode_state` que es la encargada de realizar el one-hot antes de `select_action`, por qué `_learn` no se llama con el estado actual sino con un batch del `ReplayBuffer`, qué rol cumple la `target_net` separada de la `q_net`, y por qué sincronizarlas cada cierto número de episodios en lugar de en cada paso. Cada una de estas decisiones de diseño tiene una razón matemática concreta: el buffer rompe la correlación temporal entre experiencias consecutivas, y la red objetivo evita que el agente persiga un blanco que se mueve en cada actualización de pesos. Entender esto no como código sino como algoritmo fue lo que más tiempo y revisión demandó del proyecto.
 
 ---
 
@@ -279,7 +279,6 @@ rlgames version
 
 - Los modelos entrenados se guardan en `saves/qlearning_cliff.pkl` y `saves/dqn_cliff.pt`.
 - Q-Learning converge significativamente más rápido que DQN en este ambiente.
-- El ambiente usa `is_slippery=False` por defecto — completamente determinístico.
 
 ---
 
