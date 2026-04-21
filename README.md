@@ -86,7 +86,7 @@ El espacio de acciones es 4:
 
 **Particularidades clave:**
 
-Se uso una codificación one-hot para convertir el entero de estado en un vector que la red puede procesar. Las redes neuronales no interpretan números enteros como categorías, si le pasamos el estado 36 directamente, la red lo trataría como un valor numérico y asumiría que el estado 36 es "mayor" o "más cercano" al estado 35 que al estado 0, lo cual no tiene ningún sentido en un grid. Para evitar esto, convertimos cada estado en un vector binario de 48 dimensiones donde todas las posiciones son 0 excepto la que corresponde al estado actual, que vale 1. Así, el estado 36 se convierte en un vector donde solo la posición 36 está encendida. De esta forma, la red neuronal recibe una representación equidistante y sin jerarquía numérica entre los estados — cada estado es simplemente una dirección única en el espacio de entrada, y la red puede aprender libremente qué valor Q asignar a cada uno sin ser influenciada por la magnitud del número de estado.
+Se uso una codificación one-hot para convertir el entero de estado en un vector que la red puede procesar. Las redes neuronales no interpretan números enteros como categorías, si le pasamos el estado 36 directamente, la red lo trataría como un valor numérico y asumiría que el estado 36 es "mayor" o "más cercano" al estado 35 que al estado 0, lo cual no tiene ningún sentido en un grid. Para evitar esto, convertimos cada estado en un vector binario de 48 dimensiones donde todas las posiciones son 0 excepto la que corresponde al estado actual, que vale 1. Así, el estado 36 se convierte en un vector donde solo la posición 36 está encendida. De esta forma, la red neuronal recibe una representación equidistante y sin jerarquía numérica entre los estados, cada estado es simplemente una dirección única en el espacio de entrada, y la red puede aprender libremente qué valor Q asignar a cada uno sin ser influenciada por la magnitud del número de estado.
 
 ---
 
@@ -125,7 +125,7 @@ Entrada (48)  →  Lineal(128)  →  ReLU  →  Lineal(128)  →  ReLU  →  Sal
 
 ### Q-Learning (250,000 episodios)
 
-El agente convergió a recompensas promedio entre -17 y -28**, oscilando por el efecto del `epsilon_end=0.01` que mantiene una pequeña exploración residual.
+El agente convergió a recompensas promedio entre -17 y -28, oscilando por el efecto del `epsilon_end=0.01` que mantiene una pequeña exploración residual.
 
 ```
 Episode 205900/250000 | Avg Reward: -18.05 | Epsilon: 0.0500 | States visited: 37
